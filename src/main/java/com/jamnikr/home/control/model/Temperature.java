@@ -2,10 +2,7 @@ package com.jamnikr.home.control.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -23,7 +20,8 @@ public class Temperature {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer idx;
+    @Enumerated(EnumType.STRING)
+    private Room room;
 
     private BigDecimal temperature;
 

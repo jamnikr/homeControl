@@ -7,14 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Copyright (c) Asseco Business Solutions S.A. All rights reserved.
  */
 @Configuration
 @EnableAutoConfiguration
-@EnableWebMvc
 @EnableJpaRepositories(value = "com.jamnikr.home.control.repository")
 @EntityScan(value = "com.jamnikr.home.control.model")
 @SpringBootApplication
