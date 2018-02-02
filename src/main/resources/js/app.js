@@ -31,10 +31,20 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <Temperature room="Łazienka" temperature={this.state.bathroomTemp}/>
-                <Temperature room="Sypialnia" temperature={this.state.bedroomTemp}/>
-                <Temperature room="Balkon" temperature={this.state.balconyTemp}/>
+            <div className="root">
+                <div className="line">
+                    <SpecialField/>
+                    <Temperature room="Łazienka" temperature={this.state.bathroomTemp} color="#EE6B33"/>
+                    <Temperature room="Sypialnia" temperature={this.state.bedroomTemp} color="#7ABB57"/>
+                    <Temperature room="Balkon" temperature={this.state.balconyTemp} color="#6E99CC"/>
+                </div>
+
+                <div className="line">
+                    <SpecialField/>
+                    <Temperature room="?" temperature="?" color="#769BD0"/>
+                    <Temperature room="?" temperature="?" color="#EF982E"/>
+                    <Temperature room="?" temperature="?" color="#DE1F26"/>
+                </div>
             </div>
         )
     }
@@ -42,15 +52,33 @@ class App extends React.Component {
 
 class Temperature extends React.Component {
     render() {
+        const style = {
+            backgroundColor: this.props.color
+        }
         return (
             <div className="box">
-                <div className="picture"><img src="/img/weather.jpg"/></div>
-                <div className="temperature">{this.props.temperature}&#176;</div>
-                <div className="room">{this.props.room}</div>
-                <div className="bottom"></div>
+                <div className="box-inside">
+                    <div className="room">{this.props.room}</div>
+                    <div className="temperature">{this.props.temperature}&#176;</div>
+                    <div className="bottom" style={style}>
+                        {this.props.temperature}&#176;
+                    </div>
+                </div>
             </div>
         )
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('react'));
+class SpecialField extends React.Component {
+    render() {
+        return (
+            <div className="special-field">
+
+            </div>
+        )
+    }
+}
+
+ReactDOM.render(
+    <App/>
+    , document.getElementById('react'));
