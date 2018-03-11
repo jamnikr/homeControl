@@ -1,11 +1,19 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+import Temperature from "./Temperature";
 
 class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {bathroomTemp: null, bedroomTemp: null, balconyTemp: null};
+
+        const EMPTY_TEMP = {current: '?', avg: '?', min: '?', max: '?'};
+        this.state = {
+            bathroomTemp: EMPTY_TEMP,
+            bedroomTemp: EMPTY_TEMP,
+            balconyTemp: EMPTY_TEMP,
+            emptyTemp: EMPTY_TEMP
+        };
     }
 
     componentDidMount() {
@@ -17,15 +25,15 @@ class App extends React.Component {
 
     load() {
         fetch('/temperature/BATHROOM').then(res => res.json()).then(response => {
-            this.setState({bathroomTemp: response});
+            this.setState({bathroomTemp: {current: response.current, avg: response.avg, min: response.min, max: response.max}});
         });
 
         fetch('/temperature/BEDROOM').then(res => res.json()).then(response => {
-            this.setState({bedroomTemp: response});
+            this.setState({bedroomTemp: {current: response.current, avg: response.avg, min: response.min, max: response.max}});
         });
 
         fetch('/temperature/BALCONY').then(res => res.json()).then(response => {
-            this.setState({balconyTemp: response});
+            this.setState({balconyTemp: {current: response.current, avg: response.avg, min: response.min, max: response.max}});
         });
     }
 
@@ -41,33 +49,15 @@ class App extends React.Component {
 
                 <div className="line">
                     <SpecialField/>
-                    <Temperature room="?" temperature="?" color="#769BD0"/>
-                    <Temperature room="?" temperature="?" color="#EF982E"/>
-                    <Temperature room="?" temperature="?" color="#DE1F26"/>
+                    <Temperature room="?" temperature={this.state.emptyTemp} color="#769BD0"/>
+                    <Temperature room="?" temperature={this.state.emptyTemp} color="#EF982E"/>
+                    <Temperature room="?" temperature={this.state.emptyTemp} color="#DE1F26"/>
                 </div>
             </div>
         )
     }
 }
 
-class Temperature extends React.Component {
-    render() {
-        const style = {
-            backgroundColor: this.props.color
-        }
-        return (
-            <div className="box">
-                <div className="box-inside">
-                    <div className="room">{this.props.room}</div>
-                    <div className="temperature">{this.props.temperature}&#176;</div>
-                    <div className="bottom" style={style}>
-                        {this.props.temperature}&#176;
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
 
 class SpecialField extends React.Component {
     render() {

@@ -49,8 +49,21 @@ body {
     height: 46%;
 }
 
-.line-bottom {
-
+.avg-temp {
+    display: inline-block;
+    width: 50%;
+    position: relative;
+}
+.min-max-temp {
+    display: inline-block;
+    position: absolute;
+    width: 50%;
+    text-align: right;
+}
+.max-temp, .min-temp {
+    height: 23px;
+    font-size: 22px;
+    padding-right: 7px;
 }
 
 .special-field {

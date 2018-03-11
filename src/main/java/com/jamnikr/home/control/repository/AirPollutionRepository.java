@@ -1,7 +1,7 @@
 package com.jamnikr.home.control.repository;
 
+import com.jamnikr.home.control.model.AirPollution;
 import com.jamnikr.home.control.model.Room;
-import com.jamnikr.home.control.model.Temperature;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,17 +11,17 @@ import java.time.LocalDateTime;
 /**
  * Copyright (c) Asseco Business Solutions S.A. All rights reserved.
  */
-public interface TemperatureRepository extends CrudRepository<Temperature, Integer> {
+public interface AirPollutionRepository extends CrudRepository<AirPollution, Integer> {
 
-    Temperature findDistinctFirstByRoomOrderByDateDesc(final Room room);
+    AirPollution findDistinctFirstByRoomOrderByDateDesc(final Room room);
 
-    @Query("select AVG(t.temperature) from Temperature t where t.date>?2 and t.room=?1")
+    @Query("select AVG(ap.pollution) from AirPollution ap where ap.date>?2 and ap.room=?1")
     BigDecimal findAverage(final Room room, final LocalDateTime from);
 
-    @Query("select min(t.temperature) from Temperature t where t.date>?2 and t.room=?1")
+    @Query("select min(ap.pollution) from AirPollution ap where ap.date>?2 and ap.room=?1")
     BigDecimal findMin(final Room room, final LocalDateTime from);
 
-    @Query("select max(t.temperature) from Temperature t where t.date>?2 and t.room=?1")
+    @Query("select max(ap.pollution) from AirPollution ap where ap.date>?2 and ap.room=?1")
     BigDecimal findMax(final Room room, final LocalDateTime from);
 
 }
